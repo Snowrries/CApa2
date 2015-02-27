@@ -9,7 +9,7 @@ hash HashCreate(int size){
 	
 }
 void AddValue(*size_t address, hash hashtable){
-	key = (int)()address%1000);
+	key = (int)(address%1000);
 	/*If there is nothing in the hashed location,*/
 	
 	if(hashtable->keys[key] == NULL){
