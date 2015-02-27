@@ -1,6 +1,8 @@
 #include "count.h"
 
 hash HashCreate(int size){
+	hash Kira;
+	int i;
 	kira = malloc(size*sizeof(nodeptr));
 	for(i = 0; i <size; i++){
 		kira[i]->data = NULL;
@@ -9,6 +11,8 @@ hash HashCreate(int size){
 	
 }
 void AddValue(size_t address, hash hashtable){
+	int key;
+	nodeptr noo;
 	key = (int)(address%1000);
 	/*If there is nothing in the hashed location,*/
 	
@@ -28,6 +32,7 @@ void AddValue(size_t address, hash hashtable){
 }
 
 int exists(size_t address, hash hashtable){
+	nodeptr inc;
 	inc = hashtable->keys[key];
 	while(strcmp(inc->data,address) != 0){
 		if(inc->next == NULL){
@@ -39,6 +44,8 @@ int exists(size_t address, hash hashtable){
 }
 
 void freedom(hash hashtable, int size){
+	int i;
+	nodeptr del;
 	for(i = 0; i < size; i++){
 		del = hashtable->keys[i]->data;
 		while(del->data!=NULL){
