@@ -31,7 +31,7 @@ void AddValue(size_t address, hash hashtable){
 	/*else, do nothing.*/
 }
 
-int exists(size_t address, hash hashtable){
+int exists(size_t address, hash hashtable, int key){
 	nodeptr inc;
 	inc = hashtable->keys[key];
 	while(strcmp(inc->data,address) != 0){
@@ -48,7 +48,7 @@ void freedom(hash hashtable, int size){
 	nodeptr del;
 	for(i = 0; i < size; i++){
 		del = hashtable->keys[i]->data;
-		while(del->data!=NULL){
+		while(del!=NULL){
 			hashtable->keys[i]= hashtable->keys[i]->next;
 			free(del);
 			del = hashtable->keys[i]->next;
