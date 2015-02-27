@@ -8,7 +8,7 @@ hash HashCreate(int size){
 	}
 	
 }
-void AddValue(*size_t address, hash hashtable){
+void AddValue(size_t address, hash hashtable){
 	key = (int)(address%1000);
 	/*If there is nothing in the hashed location,*/
 	
@@ -27,7 +27,7 @@ void AddValue(*size_t address, hash hashtable){
 	/*else, do nothing.*/
 }
 
-int exists(*size_t address, hash hashtable){
+int exists(size_t address, hash hashtable){
 	inc = hashtable->keys[key];
 	while(strcmp(inc->data,address) != 0){
 		if(inc->next == NULL){

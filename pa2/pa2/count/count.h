@@ -21,7 +21,7 @@ hash HashCreate(int size){
 	int i;
 }
 
-void AddValue(*size_t address, hash hashtable){
+void AddValue(size_t address, hash hashtable){
 	int key;
 	nodeptr noo;
 }
@@ -29,7 +29,7 @@ void AddValue(*size_t address, hash hashtable){
 /*returns 1 if the address is already in the table.
   returns 0 if it isn't.
  */
-int exists(*size_t address, hash hashtable, int key){
+int exists(size_t address, hash hashtable, int key){
 	nodeptr inc;
 }
 void freedom(hash hashtable, int size){
