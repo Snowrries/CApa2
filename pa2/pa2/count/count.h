@@ -2,7 +2,6 @@
 #define count_H
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 typedef struct Node * nodeptr;
 struct Node{
 	size_t data;
@@ -11,8 +10,8 @@ struct Node{
 
 
 struct hashtable_with_chaining{
-	nodeptr keys[];
 	int rc;
+	nodeptr keys[];
 	/*Stands for running count*/
 };
 typedef struct hashtable_with_chaining* hash;

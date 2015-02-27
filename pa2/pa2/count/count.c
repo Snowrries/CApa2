@@ -5,8 +5,8 @@ hash HashCreate(int size){
 	int i;
 	kira = malloc(size*sizeof(nodeptr));
 	for(i = 0; i <size; i++){
-		kira[i]->data = NULL;
-		kira[i]->next = NULL;
+		kira->keys[i]->data = NULL;
+		kira->keys[i]->next = NULL;
 	}
 	
 }
@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 	kira = HashCreate(1000);
 	fire = fopen(argv[1],"r");
 	
-	while(fscanf(fire,"%zx",add)!=EOF){
+	while(fscanf(fire,"%zx",&add)!=EOF){
 		AddValue(add,kira);
 	}
 	fclose(fire);
