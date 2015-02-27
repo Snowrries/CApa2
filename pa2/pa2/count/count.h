@@ -1,4 +1,4 @@
-#ifndefine count_H
+#ifndef count_H
 #define count_H
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +6,7 @@ struct Node{
 	size_t* data;
 	struct Node next;
 };
-typedef struct *Node nodeptr;
+typedef *(struct Node) nodeptr;
 
 struct hashtable_with_chaining{
 	nodeptr keys[];
