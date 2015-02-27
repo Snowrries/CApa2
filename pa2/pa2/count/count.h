@@ -5,7 +5,7 @@
 #include <string.h>
 typedef struct Node * nodeptr;
 struct Node{
-	size_t* data;
+	size_t data;
 	nodeptr next;
 };
 

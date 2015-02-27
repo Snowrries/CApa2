@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 	kira = HashCreate(1000);
-	fire = fopen(argv[1],r);
+	fire = fopen(argv[1],"r");
 	
 	while(fscanf(fire,"%zx",add)!=EOF){
 		AddValue(add,kira);
