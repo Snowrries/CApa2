@@ -2,6 +2,7 @@
 #define count_H
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 typedef struct Node * nodeptr;
 struct Node{
 	size_t* data;

@@ -1,7 +1,7 @@
 #include "count.h"
 
 hash HashCreate(int size){
-	hash Kira;
+	hash kira;
 	int i;
 	kira = malloc(size*sizeof(nodeptr));
 	for(i = 0; i <size; i++){
@@ -21,7 +21,7 @@ void AddValue(size_t address, hash hashtable){
 		hashtable->rc++;
 	}
 	/*If there is something there, but the address is unique,*/
-	else if(exists(address, hash, key)==0){
+	else if(exists(address, hashtable, key)==0){
 		noo = malloc(sizeof(nodeptr));
 		noo-> data = address;
 		noo-> next = hashtable->keys[key];
@@ -59,7 +59,7 @@ void freedom(hash hashtable, int size){
 
 
 int main(int argc, char** argv) {
-	size_t* add;
+	size_t add;
 	hash kira;
 	FILE* fire;
 	if(argc != 2){
