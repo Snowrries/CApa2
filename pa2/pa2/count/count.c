@@ -34,7 +34,7 @@ void AddValue(size_t address, hash hashtable){
 int exists(size_t address, hash hashtable, int key){
 	nodeptr inc;
 	inc = hashtable->keys[key];
-	while(strcmp(inc->data,address) != 0){
+	while(inc->data != address){
 		if(inc->next == NULL){
 			return 0;
 		}
