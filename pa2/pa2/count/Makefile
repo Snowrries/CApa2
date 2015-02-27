@@ -1,5 +1,5 @@
 COMPILER = gcc
-CCFLAGS  = -Wall -ansi -pedantic -Werror
+CCFLAGS  = -Wall -ansi -Werror
 all: count
 
 count: count.o
