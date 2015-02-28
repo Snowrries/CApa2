@@ -3,7 +3,10 @@
 hash HashCreate(int size){
 	hash kira;
 	int i;
-	kira = malloc(size*sizeof(nodeptr));
+	nodeptr ks;
+	ks = malloc(size*sizeof(nodeptr));
+	kira->keys[] = ks;
+	kira->rc = 0;
 	for(i = 0; i <size; i++){
 		kira->keys[i]->data = 0;
 		kira->keys[i]->next = NULL;
