@@ -5,7 +5,7 @@ hash HashCreate(int size){
 	int i;
 	kira = malloc(size*sizeof(nodeptr));
 	for(i = 0; i <size; i++){
-		kira->keys[i]->data = NULL;
+		kira->keys[i]->data = 0;
 		kira->keys[i]->next = NULL;
 	}
 	
@@ -47,7 +47,7 @@ void freedom(hash hashtable, int size){
 	int i;
 	nodeptr del;
 	for(i = 0; i < size; i++){
-		del = hashtable->keys[i]->data;
+		del = hashtable->keys[i];
 		while(del!=NULL){
 			hashtable->keys[i]= hashtable->keys[i]->next;
 			free(del);
