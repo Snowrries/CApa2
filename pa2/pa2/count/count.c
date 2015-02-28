@@ -4,6 +4,7 @@ hash HashCreate(int size){
 	hash kira;
 	int i;
 	nodeptr ks;
+	kira = malloc(sizeof(hash));
 	ks = malloc(size*sizeof(nodeptr));
 	kira->keys[0] = ks;
 	kira->rc = 0;
