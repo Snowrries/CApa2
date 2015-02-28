@@ -8,7 +8,7 @@ hash HashCreate(int size){
 		kira->keys[i]->data = 0;
 		kira->keys[i]->next = NULL;
 	}
-	
+	return kira;
 }
 void AddValue(size_t address, hash hashtable){
 	int key;
