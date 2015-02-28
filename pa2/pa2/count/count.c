@@ -4,13 +4,13 @@ hash HashCreate(int size){
 	hash kira;
 	int i;
 	nodeptr ks;
-	kira = malloc(sizeof(hash));
-	ks = malloc(size*sizeof(nodeptr));
-	kira->keys[0] = ks;
+	kira = (hash)malloc(sizeof(hash));
+	ks = (nodeptr)malloc(size*sizeof(nodeptr));
+	kira->keys* = ks;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		kira->keys[i]->data = 0;
-		kira->keys[i]->next = NULL;
+		kira->(keys+i(sizeof(nullptr)))->data = 0;
+		kira->(keys+i(sizeof(nullptr)))->next = NULL;
 	}
 	return kira;
 }
