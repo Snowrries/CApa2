@@ -6,9 +6,9 @@ hash HashCreate(int size){
 	nodeptr ks;
 	kira = (hash)malloc(sizeof(hash));
 	ks = (nodeptr)malloc(size*sizeof(nodeptr));
-	*(kira->keys) = ks;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
+		(kira->keys)[i] = ks;
 		ks->data = sizeof(NULL);
 		ks->next = NULL;
 		ks++;
@@ -19,14 +19,8 @@ void AddValue(size_t address, hash hashtable){
 	int key;
 	nodeptr noo;
 	key = (int)(address%1000);
-	/*If there is nothing in the hashed location,*/
-	
-	if(hashtable->keys[key] == NULL){
-		hashtable->keys[key]-> data = address;
-		hashtable->rc++;
-	}
-	/*If there is something there, but the address is unique,*/
-	else if(exists(address, hashtable, key)==0){
+	/*If the address is unique, add it.*/
+	if(exists(address, hashtable, key)==0){
 		noo = malloc(sizeof(nodeptr));
 		noo-> data = address;
 		noo-> next = hashtable->keys[key];
