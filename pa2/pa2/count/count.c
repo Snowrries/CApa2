@@ -5,11 +5,12 @@ hash HashCreate(int size){
 	int i;
 	nodeptr ks;
 	nodeptr* rink;
-	kira = malloc(sizeof(hash));
-	ks = malloc(size*sizeof(nodeptr));
+	kira = (hash)malloc(sizeof(hash));
+	ks = (nodeptr)malloc(size*sizeof(nodeptr));
+	rink = (*nodeptr)malloc(size*sizeof(*nodeptr));
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		rink+i = ks;
+		rink[i] = ks;
 		ks->data = sizeof(NULL);
 		ks->next = NULL;
 		ks++;
