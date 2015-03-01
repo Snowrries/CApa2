@@ -12,7 +12,7 @@ hash HashCreate(int size){
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
 		ks = (*rink+i);
-		ks->data = sizeof(NULL);
+		ks->data = (size_t)(0);
 		ks->next = NULL;
 	}
 	return kira;
