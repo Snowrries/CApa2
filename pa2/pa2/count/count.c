@@ -11,7 +11,7 @@ hash HashCreate(int size){
 	for(i = 0; i <size; i++){
 		ks->data = sizeof(NULL);
 		ks->next = NULL;
-		ks++
+		ks++;
 	}
 	return kira;
 }
