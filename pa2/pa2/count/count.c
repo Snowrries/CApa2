@@ -9,8 +9,9 @@ hash HashCreate(int size){
 	*(kira->keys) = ks;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		kira->(keys+i*(sizeof(nullptr)))->data = sizeof(NULL);
-		kira->(keys+i*(sizeof(nullptr)))->next = NULL;
+		ks->data = sizeof(NULL);
+		ks->next = NULL;
+		ks++
 	}
 	return kira;
 }
