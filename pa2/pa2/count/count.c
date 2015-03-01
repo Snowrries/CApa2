@@ -4,7 +4,7 @@ hash HashCreate(int size){
 	hash kira;
 	int i;
 	nodeptr ks;
-	nodeptr rink[];
+	nodeptr *rink;
 	kira = (hash)malloc(sizeof(hash));
 	ks = (nodeptr)malloc(size*sizeof(nodeptr));
 	rink = (nodeptr*)malloc(size*sizeof(nodeptr*));
