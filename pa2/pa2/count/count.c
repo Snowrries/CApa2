@@ -47,16 +47,20 @@ void freedom(hash hashtable, int size){
 	nodeptr del;
 	nodeptr keep;
 	for(i = 0; i < size; i++){
-		del = (hashtable->keys)[i];
-		keep = del;
-		while(keep->next!=NULL){
-			keep = keep->next;
-			//free(del);
-			del = keep;
+		if((hashtable->keys)[i]->next !=NULL){
+			del = (hashtable->keys)[i]->next;
+			keep = del;
+			while(keep->next!=NULL){
+				keep = keep->next;
+				free(del);
+				del = keep;
+				
+			}
+			free(keep);
 		}
-		//free(keep);
 	}
-	//free(hashtable);
+	free *(hashtable->keys)
+	free(hashtable);
 }
 
 
@@ -75,7 +79,7 @@ int main(int argc, char** argv) {
 		AddValue(add,kira);
 	}
 	fclose(fire);
-    printf ("%d",kira->rc);
+    printf ("%d\n",kira->rc);
 	freedom(kira, 1000);
     return 0;
 }
