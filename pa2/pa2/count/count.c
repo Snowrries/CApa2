@@ -59,7 +59,7 @@ void freedom(hash hashtable, int size){
 			free(keep);
 		}
 	}
-	free *(hashtable->keys)
+	free *(hashtable->keys);
 	free(hashtable);
 }
 
