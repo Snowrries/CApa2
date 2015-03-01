@@ -3,19 +3,12 @@
 hash HashCreate(int size){
 	hash kira;
 	int i;
-	nodeptr ksthou;
 	nodeptr ks;
-	nodeptr *rink;
 	kira = (hash)malloc(sizeof(hash));
-	ksthou = (nodeptr)malloc(size*sizeof(nodeptr));
 	kira->keys = (nodeptr*)malloc(size*sizeof(nodeptr*));
-	rink = kira->keys;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		ks = (ksthou+i);
-		*rink = ks;
-		ks->data = (size_t)(0);
-		ks->next = NULL;
+		kira->keys[i]=NULL;
 	}
 	return kira;
 }
@@ -36,6 +29,9 @@ void AddValue(size_t address, hash hashtable){
 
 int exists(size_t address, hash hashtable, int key){
 	nodeptr inc;
+	if(hashtable->key[key] == NULL){
+		return 0;
+	}
 	inc = hashtable->keys[key];
 	while(inc->data != address){
 		if(inc->next == NULL){
@@ -51,14 +47,13 @@ void freedom(hash hashtable, int size){
 	nodeptr del;
 	nodeptr keep;
 	for(i = 0; i < size; i++){
-		if((hashtable->keys)[i]->next !=NULL){
-			del = (hashtable->keys)[i]->next;
-			keep = del;
-			while(keep->next!=NULL){
+		if((hashtable->keys)[i] !=NULL){
+			keep = (hashtable->keys)[i];
+			del = keep;
+			while(keep->next != NULL){
 				keep = keep->next;
 				free(del);
 				del = keep;
-				
 			}
 			free(keep);
 		}
