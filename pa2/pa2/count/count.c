@@ -6,11 +6,11 @@ hash HashCreate(int size){
 	nodeptr ks;
 	kira = (hash)malloc(sizeof(hash));
 	ks = (nodeptr)malloc(size*sizeof(nodeptr));
-	kira->keys* = ks;
+	*(kira->keys) = ks;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		kira->(keys+i(sizeof(nullptr)))->data = sizeof(NULL);
-		kira->(keys+i(sizeof(nullptr)))->next = NULL;
+		kira->(keys+i*(sizeof(nullptr)))->data = sizeof(NULL);
+		kira->(keys+i*(sizeof(nullptr)))->next = NULL;
 	}
 	return kira;
 }
