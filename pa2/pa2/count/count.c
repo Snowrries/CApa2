@@ -45,15 +45,18 @@ int exists(size_t address, hash hashtable, int key){
 void freedom(hash hashtable, int size){
 	int i;
 	nodeptr del;
+	nodeptr keep;
 	for(i = 0; i < size; i++){
 		del = (hashtable->keys)[i];
-		while(del!=NULL){
-			(hashtable->keys)[i]= (hashtable->keys)[i]->next;
-			free(*del);
-			del = (hashtable->keys)[i]->next;
+		keep = del;
+		while(keep->next!=NULL){
+			keep = keep->next;
+			free(del);
+			del = keep;
 		}
+		free(keep);
 	}
-	free(*hashtable);
+	free(hashtable);
 }
 
 
