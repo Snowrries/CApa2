@@ -11,10 +11,9 @@ hash HashCreate(int size){
 	rink = kira->keys;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		(*rink+i) = ks;
+		ks = (*rink+i);
 		ks->data = sizeof(NULL);
 		ks->next = NULL;
-		ks++;
 	}
 	return kira;
 }
