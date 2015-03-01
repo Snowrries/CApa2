@@ -46,11 +46,11 @@ void freedom(hash hashtable, int size){
 	int i;
 	nodeptr del;
 	for(i = 0; i < size; i++){
-		del = hashtable->keys[i];
+		del = (hashtable->keys)[i];
 		while(del!=NULL){
-			hashtable->keys[i]= hashtable->keys[i]->next;
+			(hashtable->keys)[i]= (hashtable->keys[i])->next;
 			free(del);
-			del = hashtable->keys[i]->next;
+			del = (hashtable->keys)[i]->next;
 		}
 	}
 	free(hashtable);
