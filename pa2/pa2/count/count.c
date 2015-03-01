@@ -7,15 +7,15 @@ hash HashCreate(int size){
 	nodeptr *rink;
 	kira = (hash)malloc(sizeof(hash));
 	ks = (nodeptr)malloc(size*sizeof(nodeptr));
-	rink = (nodeptr*)malloc(size*sizeof(nodeptr*));
+	kira->keys = (nodeptr*)malloc(size*sizeof(nodeptr*));
+	rink = kira->keys;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		rink[i] = ks;
+		(*rink+i) = ks;
 		ks->data = sizeof(NULL);
 		ks->next = NULL;
 		ks++;
 	}
-	kira->keys = rink;
 	return kira;
 }
 void AddValue(size_t address, hash hashtable){

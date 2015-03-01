@@ -10,9 +10,8 @@ struct Node{
 
 
 struct hashtable_with_chaining{
-	int rc;
-	nodeptr keys[];
-	/*Stands for running count*/
+	int rc;/*Stands for running count*/
+	nodeptr *keys;
 };
 typedef struct hashtable_with_chaining* hash;
 
