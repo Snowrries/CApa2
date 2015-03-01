@@ -49,11 +49,11 @@ void freedom(hash hashtable, int size){
 		del = (hashtable->keys)[i];
 		while(del!=NULL){
 			(hashtable->keys)[i]= (hashtable->keys)[i]->next;
-			free(del);
+			free(*del);
 			del = (hashtable->keys)[i]->next;
 		}
 	}
-	free(hashtable);
+	free(*hashtable);
 }
 
 
