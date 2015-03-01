@@ -3,16 +3,18 @@
 hash HashCreate(int size){
 	hash kira;
 	int i;
-	nodeptr* ks;
+	nodeptr ks;
+	nodeptr* rink;
 	kira = malloc(sizeof(hash));
 	ks = malloc(size*sizeof(nodeptr));
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
+		rink+i = ks;
 		ks->data = sizeof(NULL);
 		ks->next = NULL;
 		ks++;
 	}
-	kira->keys=ks;
+	kira->keys=rink;
 	return kira;
 }
 void AddValue(size_t address, hash hashtable){
