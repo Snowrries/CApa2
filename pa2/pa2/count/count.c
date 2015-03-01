@@ -51,12 +51,12 @@ void freedom(hash hashtable, int size){
 		keep = del;
 		while(keep->next!=NULL){
 			keep = keep->next;
-			free(del);
+			//free(del);
 			del = keep;
 		}
-		free(keep);
+		//free(keep);
 	}
-	free(hashtable);
+	//free(hashtable);
 }
 
 
