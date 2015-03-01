@@ -3,15 +3,17 @@
 hash HashCreate(int size){
 	hash kira;
 	int i;
+	nodeptr ksthou;
 	nodeptr ks;
 	nodeptr *rink;
 	kira = (hash)malloc(sizeof(hash));
-	ks = (nodeptr)malloc(size*sizeof(nodeptr));
+	ksthou = (nodeptr)malloc(size*sizeof(nodeptr));
 	kira->keys = (nodeptr*)malloc(size*sizeof(nodeptr*));
 	rink = kira->keys;
 	kira->rc = 0;
 	for(i = 0; i <size; i++){
-		ks = (*rink+i);
+		ks = (ksthou+i);
+		*rink = ks;
 		ks->data = (size_t)(0);
 		ks->next = NULL;
 	}
