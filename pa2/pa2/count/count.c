@@ -3,7 +3,6 @@
 hash HashCreate(int size){
 	hash kira;
 	int i;
-	nodeptr ks;
 	kira = (hash)malloc(sizeof(hash));
 	kira->keys = (nodeptr*)malloc(size*sizeof(nodeptr*));
 	kira->rc = 0;
@@ -29,7 +28,7 @@ void AddValue(size_t address, hash hashtable){
 
 int exists(size_t address, hash hashtable, int key){
 	nodeptr inc;
-	if(hashtable->key[key] == NULL){
+	if(hashtable->keys[key] == NULL){
 		return 0;
 	}
 	inc = hashtable->keys[key];
