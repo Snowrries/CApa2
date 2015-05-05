@@ -56,10 +56,17 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 		}
 	//	printf("in: %c\n", in);
 		if((c = find(inputs, in, cursize)) == -1){
-			perror("Could not find input");
-			exit(1);
+			if((c = find(outputs, in, outno)) == -1){
+				perror("Could not find input");
+				exit(1);
+			}
+			else{
+				gatein[a] = &outputs[c]
+			}
 		}
-		gatein[a] = &inputs[c];
+		else{
+			gatein[a] = &inputs[c];
+		}
 		a++;
 	}
 	while(b < numout){
