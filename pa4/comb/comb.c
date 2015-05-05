@@ -12,7 +12,7 @@
 
 
 	/*It's definitely possible to go from binary to grey sequencing to decimal.*/
-int binary_to_gs_to_dec(entry *gatesin, int numin){
+int binary_to_gs_to_dec(entry gatesin, int numin){
 	int i;
 	int inpu = 0;
 	for(i = 0; i < numin; i++){
@@ -37,7 +37,7 @@ entry find(entry array[], char target, int saiz){
 	return NULL;
 }
 /*Reads variables and sets up values in temporary, or output vars. Use to perform gate operation in main.*/
-void read(FILE* cdf, int inno, int outno, entry *gatein, entry *gateout, entry *inputs, int *cursize_addr, int numin, int numout){
+void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inputs, int *cursize_addr, int numin, int numout){
 	int a;
 	int b;
 	char in;
@@ -84,14 +84,14 @@ void entryinit(entry wibble){
 int main(int argc, char* argv[]){
 	char *buffer;
 	//That's space for all the variables.
-	entry *inputs;
-	entry *gatein;
-	entry *gateout;
-	entry *outputs;
-	inputs = (entry*)malloc(sizeof(entry)*52);
-	gatein = (entry*)malloc(sizeof(entry)*52);
-	gateout = (entry*)malloc(sizeof(entry)*52);
-	outputs = (entry*)malloc(sizeof(entry)*26);
+	entry inputs;
+	entry gatein;
+	entry gateout;
+	entry outputs;
+	inputs = (entry)malloc(sizeof(struct entree)*52);
+	gatein = (entry)malloc(sizeof(struct entree)*52);
+	gateout = (entry)malloc(sizeof(struct entree)*52);
+	outputs = (entry)malloc(sizeof(struct entree)*26);
 	//inputs size
 	int cursize;
 	//Number of inputs, number of outputs.
