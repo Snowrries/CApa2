@@ -68,7 +68,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 		if((c = find(inputs, in, inno)) == -1){
 			if((c = find(inputs, in, inno)) == -1){
 				inputs[cursize].name = out;
-				gateout[b] = inputs[cursize];
+				gateout[b] = &inputs[cursize];
 				cursize++;
 			}
 		}
