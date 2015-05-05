@@ -115,7 +115,7 @@ int main(int argc, char* argv[]){
 	int numin;
 	int numout;
 	int test;
-	if(argc != 3 || argc != 4){//autograder has weird inputs?
+	if(argc != 3 && argc != 4){//autograder has weird inputs?
 		printf("Incorrect number of arguments.\n");
 		exit(1);
 	}
