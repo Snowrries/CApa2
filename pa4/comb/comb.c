@@ -67,12 +67,19 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 			perror("Could not read output");
 			exit(1);
 		}
-		if((c = find(inputs, out, cursize)) == -1){
-			inputs[cursize].name = out;
-			gateout[b] = &inputs[cursize];
-			cursize++;
+		if((c = find(outputs, out, cursize)) == -1){
+			if((c = find(inputs, out, cursize)) == -1){
+				inputs[cursize].name = out;
+				gateout[b] = &inputs[cursize];
+				cursize++;
+			}
+			else{
+				gateout[b] = &inputs[c];
+			}
 		}
-		gateout[b] = &inputs[c];
+		else{
+			gateout[b] = &outputs[c];
+		}
 		b++;
 	}
 	*cursize_addr = cursize;
