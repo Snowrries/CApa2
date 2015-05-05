@@ -13,6 +13,7 @@
 
 	/*It's definitely possible to go from binary to grey sequencing to decimal.*/
 int binary_to_gs_to_dec(entry *gatesin, int numin){
+	int i;
 	int inpu = 0;
 	for(i = 0; i < numin; i++){
 		inpu = inpu << 1;
@@ -36,7 +37,7 @@ entry find(entry array[], char target, int saiz){
 	return NULL;
 }
 /*Reads variables and sets up values in temporary, or output vars. Use to perform gate operation in main.*/
-void read(FILE* cdf, int inno, int outno, entry *gatein, entry *gateout, entry *inputs, int *cursize_addr){
+void read(FILE* cdf, int inno, int outno, entry *gatein, entry *gateout, entry *inputs, int *cursize_addr, int numin, int numout){
 	int a;
 	int b;
 	char in;
@@ -93,15 +94,11 @@ int main(int argc, char* argv[]){
 	outputs = malloc(sizeof(entry)*26);
 	//inputs size
 	int cursize;
-	//Space for our multiplexer inputs.
-	int *multiplex; 
 	//Number of inputs, number of outputs.
 	int inno;
 	int outno;
 	int mux[64];
 	unsigned int i;
-	char in;
-	char out;
 	int numin;
 	int numout;
 	if(argc != 3){
@@ -186,19 +183,19 @@ int main(int argc, char* argv[]){
 			if(strcmp(buffer, "NOT") == 0){
 				numin = 1;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				(gateout[0]->value) = !(gatein[0]->value);
 			}
 			else if(strcmp(buffer, "AND") == 0){
 				numin = 2;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				(gateout[0]->value) = (gatein[0]->value) && (gatein[1]->value);
 			}
 			else if(strcmp(buffer, "OR") == 0){
 				numin = 2;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				(gateout[0]->value) = (gatein[0]->value) || (gatein[1]->value);
 			}
 			else if(strcmp(buffer, "DECODER") == 0){
@@ -207,7 +204,7 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				numout = numin << 1 ;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				for(i = 0; i < numout; i++){
 					gateout[i]->value = 0;
 				}
@@ -231,7 +228,7 @@ int main(int argc, char* argv[]){
 				}
 				numin = numin >> 1;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 		}
