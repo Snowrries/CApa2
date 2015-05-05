@@ -246,6 +246,10 @@ int main(int argc, char* argv[]){
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 		}
+		for(i = 0; i < (outno-1); i++){
+			printf("%d ", outputs[i]->value);
+		}
+		printf("%d\n"outputs[(outno-1)]);
 		
 	}
 	return 0;
