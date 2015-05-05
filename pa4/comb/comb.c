@@ -248,29 +248,29 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				for(i = 0; i < numin; i++){
-					if(fscanf(cdf, " %c", &in)!= 1){
-						if(fscanf(cdf, " %d", &test) != 1){
+					if(fscanf(cdf, " %d", &test) != 1){
+						if(fscanf(cdf, " %c", &in)!= 1){
 							perror("Trouble reading mux inputs.");
 							exit(1);
 						}
 						else{
-							mux[i] = test;
+							if((test = find(inputs, in, cursize)) == -1){
+								if((test = find(outputs, in, cursize)) == -1){
+									perror("Could not find mux input.");
+									exit(1);
+								}
+								// found in outputs
+								else{
+									mux[i] = outputs[test].value;
+								}
+							}//found in inputs.
+							else{
+								mux[i] = inputs[test].value;
+							}
 						}
 					}
 					else{
-						if((test = find(inputs, in, cursize)) == -1){
-							if((test = find(outputs, in, cursize)) == -1){
-								perror("Could not find mux input.");
-								exit(1);
-							}
-							// found in outputs
-							else{
-								mux[i] = outputs[test].value;
-							}
-						}//found in inputs.
-						else{
-							mux[i] = inputs[test].value;
-						}
+						mux[i] = test;
 					}
 				}
 				numin = numin >> 1;
