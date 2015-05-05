@@ -30,7 +30,7 @@ int binary_to_gs_to_dec(entry gatesin[], int numin){
 int find(entry array, char target, int saiz){
 	int i;
 	for(i = 0; i < saiz; i++){
-		printf("target: %c, name: %c\n", target, array[i].name);
+		//printf("target: %c, name: %c\n", target, array[i].name);
 		if(target == (array[i]).name){
 			return i;
 		}
@@ -54,7 +54,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 			perror("Could not read input");
 			exit(1);
 		}
-		printf("in: %c\n", in);
+	//	printf("in: %c\n", in);
 		if((c = find(inputs, in, cursize)) == -1){
 			perror("Could not find input");
 			exit(1);
@@ -117,7 +117,7 @@ int main(int argc, char* argv[]){
 	entryinit(gatein);*/
 	cursize = 0;
 	buffer = malloc(sizeof(char)*12);
-/*	
+	
 	if((cdf = fopen(argv[1], "r")) == NULL){
 		perror("Could not open Circuit Description File.");
 		exit(1);
@@ -126,8 +126,8 @@ int main(int argc, char* argv[]){
 		perror("Could not open Input Values File.");
 		exit(1);
 	}
-	*/
-	if((cdf = fopen("test1.txt", "r")) == NULL){
+	
+/*	if((cdf = fopen("test1.txt", "r")) == NULL){
 		perror("Could not open Circuit Description File.");
 		exit(1);
 	}
@@ -135,6 +135,7 @@ int main(int argc, char* argv[]){
 		perror("Could not open Input Values File.");
 		exit(1);
 	}
+	*/
 	while(fscanf(cdf, "%s", buffer)!= EOF){
 		if(strcmp(buffer, "INPUTVAR") == 0){
 			if (fscanf(cdf, "%d", &inno) != 1){
@@ -157,7 +158,7 @@ int main(int argc, char* argv[]){
 				perror("Could not read outno");
 				exit(1);
 			}
-			printf("outno:%d\n", outno);
+			//printf("outno:%d\n", outno);
 			for(i = 0; i < outno; i++){
 				if(fscanf(cdf, " %c", &(outputs[i].name)) != 1){
 					perror("Could not read all output variables.");
@@ -177,7 +178,7 @@ int main(int argc, char* argv[]){
 			
 		}*/
 	while(fscanf(ivf, "%d", &test) != EOF){
-		printf("test: %d\n", test);
+		//printf("test: %d\n", test);
 		inputs[0].value = test;
 		for(i = 1; i < inno; i++){
 			if(fscanf(ivf, " %d", &test) != 1){
@@ -185,7 +186,7 @@ int main(int argc, char* argv[]){
 				exit(1);
 			}
 			inputs[i].value = test;
-			printf("test: %d\n", test);	
+			//printf("test: %d\n", test);	
 		}
 	/*Execute circuit.*/
 		rewind(cdf);
