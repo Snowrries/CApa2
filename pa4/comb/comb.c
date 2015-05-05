@@ -283,7 +283,13 @@ int main(int argc, char* argv[]){
 					}
 					printf("mux[%d]: %d\n", i, mux[i]);
 				}
-				numin = numin >> 1;
+				test = 1;
+				i = 0;
+				while((test >> i) != numin){
+					i++;
+				}
+				printf("Mux selects: %d \n", i);
+				numin = i;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				printf("Mux selects: ");
