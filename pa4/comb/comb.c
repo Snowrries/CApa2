@@ -191,6 +191,7 @@ int main(int argc, char* argv[]){
 	/*Execute circuit.*/
 		rewind(cdf);
 		while(fscanf(cdf, "%s", buffer)!= EOF){
+			printf("buffer: %s\n", buffer);
 			if(strcmp(buffer, "NOT") == 0){
 				numin = 1;
 				numout = 1;
