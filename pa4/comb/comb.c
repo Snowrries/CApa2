@@ -10,25 +10,7 @@
 	};
   	typedef struct entry_t* entry;
 
-  	char *buffer;
-	//That's space for all the variables.
-	entry inputs[52];
-	entry gatein[52];
-	entry gateout[52];
-	entry outputs[26];
-	//inputs size
-	int cursize;
-	//Space for our multiplexer inputs.
-	int *multiplex; 
-	//Number of inputs, number of outputs.
-	int inno;
-	int outno;
-	int mux[64];
-	unsigned int i;
-	char in;
-	char out;
-	int numin;
-	int numout;
+
 	/*It's definitely possible to go from binary to grey sequencing to decimal.*/
 int binary_to_gs_to_dec(entry *gatesin, int numin){
 	int inpu = 0;
@@ -54,9 +36,13 @@ entry find(entry array[], char target, int saiz){
 	return NULL;
 }
 /*Reads variables and sets up values in temporary, or output vars. Use to perform gate operation in main.*/
-void read(FILE* cdf){
+void read(FILE* cdf, int inno, int outno, entry *gatein, entry *gateout, entry *inputs, int *cursize_addr){
 	int a;
 	int b;
+	char in;
+	char out;
+	int cursize;
+	cursize = *cursize_addr;
 	a = 0;
 	b = 0;
 	while(a < numin){
@@ -84,14 +70,47 @@ void read(FILE* cdf){
 		}
 		b++;
 	}
+	*cursize_addr = cursize;
 	
 }
+void entryinit(entry wibble){
+	wibble->name = 'z';
+	wibble->value = 0;
+}
+
 int main(int argc, char* argv[]){
+	char *buffer;
+	//That's space for all the variables.
+	entry *inputs;
+	entry *gatein;
+	entry *gateout;
+	entry *outputs;
+	inputs = malloc(sizeof(entry)*52);
+	gatein = malloc(sizeof(entry)*52);
+	gateout = malloc(sizeof(entry)*52);
+	outputs = malloc(sizeof(entry)*26);
+	//inputs size
+	int cursize;
+	//Space for our multiplexer inputs.
+	int *multiplex; 
+	//Number of inputs, number of outputs.
+	int inno;
+	int outno;
+	int mux[64];
+	unsigned int i;
+	char in;
+	char out;
+	int numin;
+	int numout;
 	if(argc != 3){
 		printf("Incorrect number of arguments.");
 	}
 	FILE *cdf;
 	FILE *ivf;
+	entryinit(inputs);
+	entryinit(outputs);
+	entryinit(gateout);
+	entryinit(gatein);
 	cursize = 0;
 	buffer = malloc(sizeof(char)*12);
 /*	
@@ -104,7 +123,7 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
 	*/
-		if((cdf = fopen("test1.txt", "r")) == NULL){
+	if((cdf = fopen("test1.txt", "r")) == NULL){
 		perror("Could not open Circuit Description File.");
 		exit(1);
 	}
@@ -165,19 +184,19 @@ int main(int argc, char* argv[]){
 			if(strcmp(buffer, "NOT") == 0){
 				numin = 1;
 				numout = 1;
-				read(cdf);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
 				(gateout[0]->value) = !(gatein[0]->value);
 			}
 			else if(strcmp(buffer, "AND") == 0){
 				numin = 2;
 				numout = 1;
-				read(cdf);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
 				(gateout[0]->value) = (gatein[0]->value) && (gatein[1]->value);
 			}
 			else if(strcmp(buffer, "OR") == 0){
 				numin = 2;
 				numout = 1;
-				read(cdf);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
 				(gateout[0]->value) = (gatein[0]->value) || (gatein[1]->value);
 			}
 			else if(strcmp(buffer, "DECODER") == 0){
@@ -186,7 +205,7 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				numout = numin << 1 ;
-				read(cdf);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
 				for(i = 0; i < numout; i++){
 					gateout[i]->value = 0;
 				}
@@ -210,7 +229,7 @@ int main(int argc, char* argv[]){
 				}
 				numin = numin >> 1;
 				numout = 1;
-				read(cdf);
+				read(cdf, inno, outno, gatein, gateout, inputs, &cursize);
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 		}
