@@ -67,7 +67,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 			perror("Could not read output");
 			exit(1);
 		}
-		if((c = find(outputs, out, cursize)) == -1){
+		if((c = find(outputs, out, outno)) == -1){
 			if((c = find(inputs, out, cursize)) == -1){
 				inputs[cursize].name = out;
 				gateout[b] = &inputs[cursize];
@@ -114,8 +114,9 @@ int main(int argc, char* argv[]){
 	int numin;
 	int numout;
 	int test;
-	if(argc != 3){
+	if(argc != 3 || argc != 4){//autograder has weird inputs?
 		printf("Incorrect number of arguments.\n");
+		exit(1);
 	}
 	FILE *cdf;
 	FILE *ivf;
@@ -246,9 +247,25 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				for(i = 0; i < numin; i++){
-					if(fscanf(cdf, "%d", &mux[i])!= 1){
+					if(fscanf(cdf, " %c", &in)!= 1){
+						if(fscanf(cdf, " %d"))
 						perror("Trouble reading mux inputs.");
 						exit(1);
+					}
+					else{
+						if((test = find(inputs, in, cursize)) == -1){
+							if((test = find(outputs, in, cursize)) == -1){
+								perror("Could not find mux input.");
+								exit(1);
+							}
+							// found in outputs
+							else{
+								mux[i] = outputs[test].value;
+							}
+						}//found in inputs.
+						else{
+							mux[i] = inputs[test].value;
+						}
 					}
 				}
 				numin = numin >> 1;
