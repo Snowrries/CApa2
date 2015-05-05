@@ -249,9 +249,13 @@ int main(int argc, char* argv[]){
 				}
 				for(i = 0; i < numin; i++){
 					if(fscanf(cdf, " %c", &in)!= 1){
-						if(fscanf(cdf, " %d"))
-						perror("Trouble reading mux inputs.");
-						exit(1);
+						if((fscanf(cdf, " %d"), &test) != 1){
+							perror("Trouble reading mux inputs.");
+							exit(1);
+						}
+						else{
+							mux[i] = test;
+						}
 					}
 					else{
 						if((test = find(inputs, in, cursize)) == -1){
