@@ -38,7 +38,7 @@ int find(entry array, char target, int saiz){
 	return -1;
 }
 /*Reads variables and sets up values in temporary, or output vars. Use to perform gate operation in main.*/
-void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry inputs, int *cursize_addr, int numin, int numout){
+void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry inputs, entry outputs, int *cursize_addr, int numin, int numout){
 	int a;
 	int b;
 	int c;
@@ -206,20 +206,20 @@ int main(int argc, char* argv[]){
 			if(strcmp(buffer, "NOT") == 0){
 				numin = 1;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
+				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				(gateout[0]->value) = !(gatein[0]->value);
 			}
 			else if(strcmp(buffer, "AND") == 0){
 				numin = 2;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
+				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				(gateout[0]->value) = (gatein[0]->value) && (gatein[1]->value);
 				printf("%c && %c = %d", gatein[0]->name, gatein[1]->name, gateout[0]->value);
 			}
 			else if(strcmp(buffer, "OR") == 0){
 				numin = 2;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
+				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				(gateout[0]->value) = (gatein[0]->value) || (gatein[1]->value);
 				printf("%c || %c = %d", gatein[0]->name, gatein[1]->name, gateout[0]->value);
 			}
@@ -229,7 +229,7 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				numout = numin << 1 ;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
+				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				for(i = 0; i < numout; i++){
 					gateout[i]->value = 0;
 				}
@@ -253,7 +253,7 @@ int main(int argc, char* argv[]){
 				}
 				numin = numin >> 1;
 				numout = 1;
-				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
+				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 			else{//hopefully eats the line
