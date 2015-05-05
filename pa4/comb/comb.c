@@ -243,7 +243,7 @@ int main(int argc, char* argv[]){
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 			else{//Hopefully eats the line.
-				fscanf(cdf, "%*s\n");
+				fscanf(cdf, "%*s %*d %*s\n");
 			}
 		}
 		for(i = 0; i < (outno-1); i++){
