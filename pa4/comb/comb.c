@@ -72,7 +72,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 				cursize++;
 			}
 		}
-		gateout[b] = &inputs[c]
+		gateout[b] = &inputs[c];
 		b++;
 	}
 	*cursize_addr = cursize;
