@@ -61,7 +61,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 				exit(1);
 			}
 			else{
-				gatein[a] = &outputs[c]
+				gatein[a] = &outputs[c];
 			}
 		}
 		else{
