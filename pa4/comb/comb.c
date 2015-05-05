@@ -93,6 +93,7 @@ void entryinit(entry wibble){
 */
 
 int main(int argc, char* argv[]){
+	char in;
 	char trash[256];
 	char *buffer;
 	//That's space for all the variables.
