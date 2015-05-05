@@ -166,10 +166,6 @@ int main(int argc, char* argv[]){
 			}
 			/*Finished setting up all output variables.*/
 		}
-		else{
-			perror("Could not grab input/output vars.");
-			exit(1);
-		}
 	}
 	/*Begin loading values.*/
 	/*while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
