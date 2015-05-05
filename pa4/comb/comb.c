@@ -105,6 +105,7 @@ int main(int argc, char* argv[]){
 	unsigned int i;
 	int numin;
 	int numout;
+	int test;
 	if(argc != 3){
 		printf("Incorrect number of arguments.");
 	}
@@ -175,13 +176,24 @@ int main(int argc, char* argv[]){
 	}
 	
 	/*Begin loading values.*/
-	while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
+	/*while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
 		for(i = 1; i < inno; i++){
-			if(fscanf(ivf, "%d", &(inputs[i].value)) != 1){
+			if(fscanf(ivf, " %d", &(inputs[i].value)) != 1){
 				perror("Couldn't grab inputs values.");
 				exit(1);
 			}
 			
+		}*/
+	while(fscanf(ivf, "%d", &test) != EOF){
+		printf("test: %d\n", test);
+		inputs[0].value = test;
+		for(i = 1; i < inno; i++){
+			if(fscanf(ivf, " %d", &test) != 1){
+				perror("Couldn't grab inputs values.");
+				exit(1);
+			}
+			inputs[i].value = test;
+			printf("test: %d\n", test);	
 		}
 	/*Execute circuit.*/
 		while(fscanf(cdf, "%s", buffer)!= EOF){
