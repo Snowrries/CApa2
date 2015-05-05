@@ -112,7 +112,7 @@ int main(int argc, char* argv[]){
 		perror("Could not open Input Values File.");
 		exit(1);
 	}
-	fscanf(cdf,"%s",&buffer);
+	fscanf(cdf,"%s",buffer);
 	if(strcmp(buffer, "INPUTVAR") == 0){
 		if (fscanf(cdf, "%d", &inno) != 1){
 			perror("Could not read inno");
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]){
 		perror("Could not grab input vars. ")
 		exit(1);
 	}
-	fscanf(cdf,"%s",&buffer);
+	fscanf(cdf,"%s",buffer);
 	if(strcmp(buffer, "OUTPUTVAR") == 0){
 		if (fscanf(cdf, "%d", &outno) != 1){
 			perror("Could not read outno");
@@ -161,7 +161,7 @@ int main(int argc, char* argv[]){
 			}
 		}
 	/*Execute circuit.*/
-		while(fscanf(cdf, "%s", &buffer)!= EOF){
+		while(fscanf(cdf, "%s", buffer)!= EOF){
 			if(strcmp(buffer, "NOT") == 0){
 				numin = 1;
 				numout = 1;
