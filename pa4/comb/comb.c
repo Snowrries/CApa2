@@ -30,6 +30,7 @@ int binary_to_gs_to_dec(entry gatesin[], int numin){
 int find(entry array, char target, int saiz){
 	int i;
 	for(i = 0; i < saiz; i++){
+		printf("target: %c, name: %c\n", target, array[i].name);
 		if(target == (array[i]).name){
 			return i;
 		}
@@ -53,6 +54,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 			perror("Could not read input");
 			exit(1);
 		}
+		printf("in: %c\n", in);
 		if((c = find(inputs, in, inno)) == -1){
 			perror("Could not find input");
 			exit(1);
@@ -107,7 +109,7 @@ int main(int argc, char* argv[]){
 	int numout;
 	int test;
 	if(argc != 3){
-		printf("Incorrect number of arguments.");
+		printf("Incorrect number of arguments.\n");
 	}
 	FILE *cdf;
 	FILE *ivf;
