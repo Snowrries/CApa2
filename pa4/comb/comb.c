@@ -73,10 +73,12 @@ void read(FILE* cdf, int inno, int outno, entry *gatein, entry *gateout, entry *
 	*cursize_addr = cursize;
 	
 }
+/*
 void entryinit(entry wibble){
 	wibble->name = 'z';
 	wibble->value = 0;
 }
+*/
 
 int main(int argc, char* argv[]){
 	char *buffer;
@@ -107,10 +109,10 @@ int main(int argc, char* argv[]){
 	}
 	FILE *cdf;
 	FILE *ivf;
-	entryinit(inputs);
+	/*entryinit(inputs);
 	entryinit(outputs);
 	entryinit(gateout);
-	entryinit(gatein);
+	entryinit(gatein);*/
 	cursize = 0;
 	buffer = malloc(sizeof(char)*12);
 /*	
