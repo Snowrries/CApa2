@@ -27,34 +27,37 @@ int binary_to_gs_to_dec(entry gatesin, int numin){
 	return 0;
 }
 
-struct entree find(entry array, char target, int saiz){
+int find(entry array, char target, int saiz){
 	int i;
 	for(i = 0; i < saiz; i++){
 		if(target == (array[i]).name){
-			return array[i];
+			return i;
 		}
 	}
-	return NULL;
+	return -1;
 }
 /*Reads variables and sets up values in temporary, or output vars. Use to perform gate operation in main.*/
 void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inputs, int *cursize_addr, int numin, int numout){
 	int a;
 	int b;
+	int c;
 	char in;
 	char out;
 	int cursize;
 	cursize = *cursize_addr;
 	a = 0;
 	b = 0;
+	c = -1;
 	while(a < numin){
 		if (fscanf(cdf, "%c", &in) != 1){
 			perror("Could not read input");
 			exit(1);
 		}
-		if((gatein[a] = find(inputs, in, inno)) == NULL){
+		if((c = find(inputs, in, inno)) == -1){
 			perror("Could not find input");
 			exit(1);
 		}
+		gatein[a] = inputs[c];
 		a++;
 	}
 	while(b < numout){
@@ -62,8 +65,8 @@ void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inp
 			perror("Could not read output");
 			exit(1);
 		}
-		if((gateout[b] = find(inputs, out, outno)) == NULL){
-			if((gateout[b] = find(inputs, out, outno)) == NULL){
+		if((c = find(inputs, in, inno)) == -1){
+			if((c = find(inputs, in, inno)) == -1){
 				inputs[cursize].name = out;
 				gateout[b] = inputs[cursize];
 				cursize++;
