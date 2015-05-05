@@ -17,20 +17,20 @@ int binary_to_gs_to_dec(entry gatesin, int numin){
 	int inpu = 0;
 	for(i = 0; i < numin; i++){
 		inpu = inpu << 1;
-		inpu += gatesin[i]->value;
+		inpu += gatesin[i].value;
 	}
 	for(i = 0; i < (numin << 1); i++){
-		if(inpu == (i^(i>>1))){//Check against the grey sequence. 
+		if(inpu == (i^(i>>1))){//Check against the grey sequence.
 			return i;
 		}
 	}
 	return 0;
 }
 
-entry find(entry array[], char target, int saiz){
+struct entree find(entry array, char target, int saiz){
 	int i;
 	for(i = 0; i < saiz; i++){
-		if(target == (array[i])->name){
+		if(target == (array[i]).name){
 			return array[i];
 		}
 	}
@@ -64,7 +64,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inp
 		}
 		if((gateout[b] = find(inputs, out, outno)) == NULL){
 			if((gateout[b] = find(inputs, out, outno)) == NULL){
-				inputs[cursize] -> name = out;
+				inputs[cursize].name = out;
 				gateout[b] = inputs[cursize];
 				cursize++;
 			}
@@ -76,8 +76,8 @@ void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inp
 }
 /*
 void entryinit(entry wibble){
-	wibble->name = 'z';
-	wibble->value = 0;
+	wibble.name = 'z';
+	wibble.value = 0;
 }
 */
 
@@ -137,7 +137,7 @@ int main(int argc, char* argv[]){
 			exit(1);
 		}
 		for(i = 0; i < inno; i++){
-			if(fscanf(cdf, "%c", &(inputs[i]->name)) != 1){
+			if(fscanf(cdf, "%c", &(inputs[i].name)) != 1){
 				perror("Could not read all input variables.");
 				exit(1);
 			}
@@ -147,7 +147,7 @@ int main(int argc, char* argv[]){
 		Temporary ones will be set up as we go.*/
 	}
 	else{
-		perror("Could not grab input vars. ");
+		perror("Could not grab input vars.");
 		exit(1);
 	}
 	fscanf(cdf,"%s",buffer);
@@ -158,7 +158,7 @@ int main(int argc, char* argv[]){
 		}
 		printf("outno: %d\n", outno);
 		for(i = 0; i < outno; i++){
-			if(fscanf(cdf, "%c", &(outputs[i] ->name)) != 1){
+			if(fscanf(cdf, "%c", &(outputs[i].name)) != 1){
 				perror("Could not read all output variables.");
 				exit(1);
 			}
@@ -166,14 +166,14 @@ int main(int argc, char* argv[]){
 		/*Finished setting up all output variables.*/
 	}
 	else{
-		perror("Could not grab output vars. ");
+		perror("Could not grab output vars.");
 		exit(1);
 	}
 	
 	/*Begin loading values.*/
-	while(fscanf(ivf, "%d", &(inputs[0] ->value)) != EOF){
+	while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
 		for(i = 1; i < inno; i++){
-			if(fscanf(ivf, "%d", &(inputs[i] -> value)) != 1){
+			if(fscanf(ivf, "%d", &(inputs[i].value)) != 1){
 				perror("Couldn't grab inputs values.");
 				exit(1);
 			}
@@ -184,19 +184,19 @@ int main(int argc, char* argv[]){
 				numin = 1;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				(gateout[0]->value) = !(gatein[0]->value);
+				(gateout[0].value) = !(gatein[0].value);
 			}
 			else if(strcmp(buffer, "AND") == 0){
 				numin = 2;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				(gateout[0]->value) = (gatein[0]->value) && (gatein[1]->value);
+				(gateout[0].value) = (gatein[0].value) && (gatein[1].value);
 			}
 			else if(strcmp(buffer, "OR") == 0){
 				numin = 2;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				(gateout[0]->value) = (gatein[0]->value) || (gatein[1]->value);
+				(gateout[0].value) = (gatein[0].value) || (gatein[1].value);
 			}
 			else if(strcmp(buffer, "DECODER") == 0){
 				if (fscanf(cdf, "%d", &numin) != 1){
@@ -206,9 +206,9 @@ int main(int argc, char* argv[]){
 				numout = numin << 1 ;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				for(i = 0; i < numout; i++){
-					gateout[i]->value = 0;
+					gateout[i].value = 0;
 				}
-				gateout[binary_to_gs_to_dec(gatein, numin)]->value = 1;
+				gateout[binary_to_gs_to_dec(gatein, numin)].value = 1;
 				
 			}
 			else if(strcmp(buffer, "MULTIPLEXER") == 0){
@@ -229,7 +229,7 @@ int main(int argc, char* argv[]){
 				numin = numin >> 1;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
+				gateout[0].value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 		}
 	}
