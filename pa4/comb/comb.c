@@ -12,12 +12,12 @@
 
 
 	/*It's definitely possible to go from binary to grey sequencing to decimal.*/
-int binary_to_gs_to_dec(entry gatesin, int numin){
+int binary_to_gs_to_dec(entry gatesin[], int numin){
 	int i;
 	int inpu = 0;
 	for(i = 0; i < numin; i++){
 		inpu = inpu << 1;
-		inpu += gatesin[i].value;
+		inpu += gatesin[i]->value;
 	}
 	for(i = 0; i < (numin << 1); i++){
 		if(inpu == (i^(i>>1))){//Check against the grey sequence.
