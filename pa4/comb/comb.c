@@ -130,6 +130,7 @@ int main(int argc, char* argv[]){
 			perror("Could not read outno");
 			exit(1);
 		}
+		printf("outno: %d", outno);
 		for(i = 0; i < outno; i++){
 			if(fscanf(cdf, "%c", &(outputs[i] ->name)) != 1){
 				perror("Could not read all output variables.");
