@@ -37,7 +37,7 @@ int find(entry array, char target, int saiz){
 	return -1;
 }
 /*Reads variables and sets up values in temporary, or output vars. Use to perform gate operation in main.*/
-void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inputs, int *cursize_addr, int numin, int numout){
+void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry inputs, int *cursize_addr, int numin, int numout){
 	int a;
 	int b;
 	int c;
@@ -57,7 +57,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inp
 			perror("Could not find input");
 			exit(1);
 		}
-		gatein[a] = inputs[c];
+		gatein[a] = &inputs[c];
 		a++;
 	}
 	while(b < numout){
@@ -88,12 +88,12 @@ int main(int argc, char* argv[]){
 	char *buffer;
 	//That's space for all the variables.
 	entry inputs;
-	entry gatein;
-	entry gateout;
+	entry gatein[52];
+	entry gateout[52];
 	entry outputs;
 	inputs = (entry)malloc(sizeof(struct entree)*52);
-	gatein = (entry)malloc(sizeof(struct entree)*52);
-	gateout = (entry)malloc(sizeof(struct entree)*52);
+//	gatein = (entry)malloc(sizeof(struct entree)*52);
+//	gateout = (entry)malloc(sizeof(struct entree)*52);
 	outputs = (entry)malloc(sizeof(struct entree)*26);
 	//inputs size
 	int cursize;
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]){
 	}
 	fscanf(cdf,"%s",buffer);
 	if(strcmp(buffer, "INPUTVAR") == 0){
-		if (fscanf(cdf, " %d", &inno) != 1){
+		if (fscanf(cdf, "%d", &inno) != 1){
 			perror("Could not read inno");
 			exit(1);
 		}
@@ -155,11 +155,11 @@ int main(int argc, char* argv[]){
 	}
 	fscanf(cdf,"%s",buffer);
 	if(strcmp(buffer, "OUTPUTVAR") == 0){
-		if (fscanf(cdf, " %d", &outno) != 1){
+		if (fscanf(cdf, "%d", &outno) != 1){
 			perror("Could not read outno");
 			exit(1);
 		}
-		printf("outno: %d\n", outno);
+		printf("outno:%d\n", outno);
 		for(i = 0; i < outno; i++){
 			if(fscanf(cdf, " %c", &(outputs[i].name)) != 1){
 				perror("Could not read all output variables.");
@@ -176,7 +176,7 @@ int main(int argc, char* argv[]){
 	/*Begin loading values.*/
 	while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
 		for(i = 1; i < inno; i++){
-			if(fscanf(ivf, " %d", &(inputs[i].value)) != 1){
+			if(fscanf(ivf, "%d", &(inputs[i].value)) != 1){
 				perror("Couldn't grab inputs values.");
 				exit(1);
 			}
@@ -187,35 +187,35 @@ int main(int argc, char* argv[]){
 				numin = 1;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				(gateout[0].value) = !(gatein[0].value);
+				(gateout[0]->value) = !(gatein[0]->value);
 			}
 			else if(strcmp(buffer, "AND") == 0){
 				numin = 2;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				(gateout[0].value) = (gatein[0].value) && (gatein[1].value);
+				(gateout[0]->value) = (gatein[0]->value) && (gatein[1]->value);
 			}
 			else if(strcmp(buffer, "OR") == 0){
 				numin = 2;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				(gateout[0].value) = (gatein[0].value) || (gatein[1].value);
+				(gateout[0]->value) = (gatein[0]->value) || (gatein[1]->value);
 			}
 			else if(strcmp(buffer, "DECODER") == 0){
-				if (fscanf(cdf, " %d", &numin) != 1){
+				if (fscanf(cdf, "%d", &numin) != 1){
 					perror("Could not read numin");
 					exit(1);
 				}
 				numout = numin << 1 ;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				for(i = 0; i < numout; i++){
-					gateout[i].value = 0;
+					gateout[i]->value = 0;
 				}
-				gateout[binary_to_gs_to_dec(gatein, numin)].value = 1;
+				gateout[binary_to_gs_to_dec(gatein, numin)]->value = 1;
 				
 			}
 			else if(strcmp(buffer, "MULTIPLEXER") == 0){
-				if (fscanf(cdf, " %d", &numin) != 1){
+				if (fscanf(cdf, "%d", &numin) != 1){
 					perror("Could not read numin");
 					exit(1);
 				}
@@ -224,7 +224,7 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				for(i = 0; i < numin; i++){
-					if(fscanf(cdf, " %d", &mux[i])!= 1){
+					if(fscanf(cdf, "%d", &mux[i])!= 1){
 						perror("Trouble reading mux inputs.");
 						exit(1);
 					}
@@ -232,7 +232,7 @@ int main(int argc, char* argv[]){
 				numin = numin >> 1;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
-				gateout[0].value = mux[(binary_to_gs_to_dec(gatein, numin))];
+				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 		}
 	}
