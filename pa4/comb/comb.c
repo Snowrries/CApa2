@@ -135,46 +135,42 @@ int main(int argc, char* argv[]){
 		perror("Could not open Input Values File.");
 		exit(1);
 	}
-	fscanf(cdf,"%s",buffer);
-	if(strcmp(buffer, "INPUTVAR") == 0){
-		if (fscanf(cdf, "%d", &inno) != 1){
-			perror("Could not read inno");
-			exit(1);
-		}
-		for(i = 0; i < inno; i++){
-			if(fscanf(cdf, " %c", &(inputs[i].name)) != 1){
-				perror("Could not read all input variables.");
+	while(fscanf(cdf, "%s", buffer)!= EOF){
+		if(strcmp(buffer, "INPUTVAR") == 0){
+			if (fscanf(cdf, "%d", &inno) != 1){
+				perror("Could not read inno");
 				exit(1);
 			}
+			for(i = 0; i < inno; i++){
+				if(fscanf(cdf, " %c", &(inputs[i].name)) != 1){
+					perror("Could not read all input variables.");
+					exit(1);
+				}
+			}
+			cursize = inno;
+			/*Finished setting up all initial input variables.
+			Temporary ones will be set up as we go.*/
 		}
-		cursize = inno;
-		/*Finished setting up all initial input variables.
-		Temporary ones will be set up as we go.*/
-	}
-	else{
-		perror("Could not grab input vars.");
-		exit(1);
-	}
-	fscanf(cdf,"%s",buffer);
-	if(strcmp(buffer, "OUTPUTVAR") == 0){
-		if (fscanf(cdf, "%d", &outno) != 1){
-			perror("Could not read outno");
-			exit(1);
-		}
-		printf("outno:%d\n", outno);
-		for(i = 0; i < outno; i++){
-			if(fscanf(cdf, " %c", &(outputs[i].name)) != 1){
-				perror("Could not read all output variables.");
+
+		else if(strcmp(buffer, "OUTPUTVAR") == 0){
+			if (fscanf(cdf, "%d", &outno) != 1){
+				perror("Could not read outno");
 				exit(1);
 			}
+			printf("outno:%d\n", outno);
+			for(i = 0; i < outno; i++){
+				if(fscanf(cdf, " %c", &(outputs[i].name)) != 1){
+					perror("Could not read all output variables.");
+					exit(1);
+				}
+			}
+			/*Finished setting up all output variables.*/
 		}
-		/*Finished setting up all output variables.*/
+		else{
+			perror("Could not grab input/output vars.");
+			exit(1);
+		}
 	}
-	else{
-		perror("Could not grab output vars.");
-		exit(1);
-	}
-	
 	/*Begin loading values.*/
 	/*while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
 		for(i = 1; i < inno; i++){
@@ -196,6 +192,7 @@ int main(int argc, char* argv[]){
 			printf("test: %d\n", test);	
 		}
 	/*Execute circuit.*/
+		rewind(cdf);
 		while(fscanf(cdf, "%s", buffer)!= EOF){
 			if(strcmp(buffer, "NOT") == 0){
 				numin = 1;
@@ -249,6 +246,7 @@ int main(int argc, char* argv[]){
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 		}
+		
 	}
 	return 0;
 }
