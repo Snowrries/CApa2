@@ -293,10 +293,10 @@ int main(int argc, char* argv[]){
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, outputs, &cursize, numin, numout);
 				//printf("Mux selects: ");
-				for(i = 0; i < numin; i++){
-					printf("%d", gatein[i]->value);
-				}
-				printf("\n");
+			//	for(i = 0; i < numin; i++){
+			//		printf("%d", gatein[i]->value);
+			//	}
+			//	printf("\n");
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
 			else{//hopefully eats the line
