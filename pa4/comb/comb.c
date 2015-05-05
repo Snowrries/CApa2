@@ -207,12 +207,14 @@ int main(int argc, char* argv[]){
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				(gateout[0]->value) = (gatein[0]->value) && (gatein[1]->value);
+				printf("%c && %c = %s", gatein[0]->name, gatein[1]->name, gateout[0]->value);
 			}
 			else if(strcmp(buffer, "OR") == 0){
 				numin = 2;
 				numout = 1;
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				(gateout[0]->value) = (gatein[0]->value) || (gatein[1]->value);
+				printf("%c || %c = %s", gatein[0]->name, gatein[1]->name, gateout[0]->value);
 			}
 			else if(strcmp(buffer, "DECODER") == 0){
 				if (fscanf(cdf, "%d", &numin) != 1){
