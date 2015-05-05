@@ -129,7 +129,7 @@ int main(int argc, char* argv[]){
 		Temporary ones will be set up as we go.*/
 	}
 	else{
-		perror("Could not grab input vars. ")
+		perror("Could not grab input vars. ");
 		exit(1);
 	}
 	fscanf(cdf,"%s",buffer);
@@ -148,7 +148,7 @@ int main(int argc, char* argv[]){
 		/*Finished setting up all output variables.*/
 	}
 	else{
-		perror("Could not grab output vars. ")
+		perror("Could not grab output vars. ");
 		exit(1);
 	}
 	
