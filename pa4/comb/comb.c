@@ -94,7 +94,7 @@ int main(int argc, char* argv[]){
 	FILE *ivf;
 	cursize = 0;
 	buffer = malloc(sizeof(char)*12);
-	
+/*	
 	if((cdf = fopen(argv[1], "r")) == NULL){
 		perror("Could not open Circuit Description File.");
 		exit(1);
@@ -103,7 +103,15 @@ int main(int argc, char* argv[]){
 		perror("Could not open Input Values File.");
 		exit(1);
 	}
-	
+	*/
+		if((cdf = fopen("test1.txt", "r")) == NULL){
+		perror("Could not open Circuit Description File.");
+		exit(1);
+	}
+	else if((ivf = fopen("input1.txt", "r")) == NULL){
+		perror("Could not open Input Values File.");
+		exit(1);
+	}
 	fscanf(cdf,"%s",&buffer);
 	if(strcmp(buffer, "INPUTVAR") == 0){
 		if (fscanf(cdf, "%d", &inno) != 1){
