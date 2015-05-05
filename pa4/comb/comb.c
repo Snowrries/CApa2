@@ -261,6 +261,7 @@ int main(int argc, char* argv[]){
 							exit(1);
 						}
 						else{
+							printf("Mux char input: %c\n", in);
 							if((test = find(inputs, in, cursize)) == -1){
 								if((test = find(outputs, in, cursize)) == -1){
 									perror("Could not find mux input.");
@@ -277,8 +278,10 @@ int main(int argc, char* argv[]){
 						}
 					}
 					else{
+						printf("Mux number input: %d\n", test);
 						mux[i] = test;
 					}
+					printf("mux[%d]: %d\n", i, mux[i]);
 				}
 				numin = numin >> 1;
 				numout = 1;
