@@ -247,9 +247,9 @@ int main(int argc, char* argv[]){
 			}
 		}
 		for(i = 0; i < (outno-1); i++){
-			printf("%d ", outputs[i]->value);
+			printf("%d ", outputs[i].value);
 		}
-		printf("%d\n"outputs[(outno-1)]);
+		printf("%d\n", outputs[(outno-1)].value);
 		
 	}
 	return 0;
