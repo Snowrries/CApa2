@@ -285,7 +285,7 @@ int main(int argc, char* argv[]){
 				}
 				test = 1;
 				i = 0;
-				while((test >> i) != numin){
+				while((test << i) != numin){
 					i++;
 				}
 				printf("Mux selects: %d \n", i);
