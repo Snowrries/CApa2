@@ -49,7 +49,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inp
 	b = 0;
 	c = -1;
 	while(a < numin){
-		if (fscanf(cdf, "%c", &in) != 1){
+		if (fscanf(cdf, " %c", &in) != 1){
 			perror("Could not read input");
 			exit(1);
 		}
@@ -61,7 +61,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein, entry gateout, entry inp
 		a++;
 	}
 	while(b < numout){
-		if(fscanf(cdf, "%c", &out) != 1){
+		if(fscanf(cdf, " %c", &out) != 1){
 			perror("Could not read output");
 			exit(1);
 		}
@@ -135,12 +135,12 @@ int main(int argc, char* argv[]){
 	}
 	fscanf(cdf,"%s",buffer);
 	if(strcmp(buffer, "INPUTVAR") == 0){
-		if (fscanf(cdf, "%d", &inno) != 1){
+		if (fscanf(cdf, " %d", &inno) != 1){
 			perror("Could not read inno");
 			exit(1);
 		}
 		for(i = 0; i < inno; i++){
-			if(fscanf(cdf, "%c", &(inputs[i].name)) != 1){
+			if(fscanf(cdf, " %c", &(inputs[i].name)) != 1){
 				perror("Could not read all input variables.");
 				exit(1);
 			}
@@ -155,13 +155,13 @@ int main(int argc, char* argv[]){
 	}
 	fscanf(cdf,"%s",buffer);
 	if(strcmp(buffer, "OUTPUTVAR") == 0){
-		if (fscanf(cdf, "%d", &outno) != 1){
+		if (fscanf(cdf, " %d", &outno) != 1){
 			perror("Could not read outno");
 			exit(1);
 		}
 		printf("outno: %d\n", outno);
 		for(i = 0; i < outno; i++){
-			if(fscanf(cdf, "%c", &(outputs[i].name)) != 1){
+			if(fscanf(cdf, " %c", &(outputs[i].name)) != 1){
 				perror("Could not read all output variables.");
 				exit(1);
 			}
@@ -176,7 +176,7 @@ int main(int argc, char* argv[]){
 	/*Begin loading values.*/
 	while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
 		for(i = 1; i < inno; i++){
-			if(fscanf(ivf, "%d", &(inputs[i].value)) != 1){
+			if(fscanf(ivf, " %d", &(inputs[i].value)) != 1){
 				perror("Couldn't grab inputs values.");
 				exit(1);
 			}
@@ -202,7 +202,7 @@ int main(int argc, char* argv[]){
 				(gateout[0].value) = (gatein[0].value) || (gatein[1].value);
 			}
 			else if(strcmp(buffer, "DECODER") == 0){
-				if (fscanf(cdf, "%d", &numin) != 1){
+				if (fscanf(cdf, " %d", &numin) != 1){
 					perror("Could not read numin");
 					exit(1);
 				}
@@ -215,7 +215,7 @@ int main(int argc, char* argv[]){
 				
 			}
 			else if(strcmp(buffer, "MULTIPLEXER") == 0){
-				if (fscanf(cdf, "%d", &numin) != 1){
+				if (fscanf(cdf, " %d", &numin) != 1){
 					perror("Could not read numin");
 					exit(1);
 				}
@@ -224,7 +224,7 @@ int main(int argc, char* argv[]){
 					exit(1);
 				}
 				for(i = 0; i < numin; i++){
-					if(fscanf(cdf, "%d", &mux[i])!= 1){
+					if(fscanf(cdf, " %d", &mux[i])!= 1){
 						perror("Trouble reading mux inputs.");
 						exit(1);
 					}
