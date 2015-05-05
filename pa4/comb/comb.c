@@ -72,6 +72,7 @@ void read(FILE* cdf, int inno, int outno, entry gatein[], entry gateout[], entry
 				cursize++;
 			}
 		}
+		gateout[b] = &inputs[c]
 		b++;
 	}
 	*cursize_addr = cursize;
@@ -180,6 +181,7 @@ int main(int argc, char* argv[]){
 				perror("Couldn't grab inputs values.");
 				exit(1);
 			}
+			
 		}
 	/*Execute circuit.*/
 		while(fscanf(cdf, "%s", buffer)!= EOF){
