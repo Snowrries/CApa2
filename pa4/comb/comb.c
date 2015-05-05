@@ -86,6 +86,7 @@ void entryinit(entry wibble){
 */
 
 int main(int argc, char* argv[]){
+	char trash[256];
 	char *buffer;
 	//That's space for all the variables.
 	entry inputs;
@@ -167,6 +168,9 @@ int main(int argc, char* argv[]){
 			}
 			/*Finished setting up all output variables.*/
 		}
+		else{
+			fgets(trash, 200, cdf);
+		}
 	}
 	/*Begin loading values.*/
 	/*while(fscanf(ivf, "%d", &(inputs[0].value)) != EOF){
@@ -243,8 +247,8 @@ int main(int argc, char* argv[]){
 				read(cdf, inno, outno, gatein, gateout, inputs, &cursize, numin, numout);
 				gateout[0]->value = mux[(binary_to_gs_to_dec(gatein, numin))];
 			}
-			else{//Hopefully eats the line.
-				fscanf(cdf, "%*d %*s\n");
+			else{//hopefully eats the line
+				fgets(trash, 200, cdf);
 			}
 		}
 		for(i = 0; i < (outno-1); i++){
