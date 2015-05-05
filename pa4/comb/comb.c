@@ -4,11 +4,11 @@
 /*argv[0] is the Circuit Description File
   argv[1] is the Input Values File
   */
-	struct entry_t{
+	struct entree{
 		char name;
 		int value;
 	};
-  	typedef struct entry_t* entry;
+  	typedef struct entree* entry;
 
 
 	/*It's definitely possible to go from binary to grey sequencing to decimal.*/
@@ -88,10 +88,10 @@ int main(int argc, char* argv[]){
 	entry *gatein;
 	entry *gateout;
 	entry *outputs;
-	inputs = malloc(sizeof(entry)*52);
-	gatein = malloc(sizeof(entry)*52);
-	gateout = malloc(sizeof(entry)*52);
-	outputs = malloc(sizeof(entry)*26);
+	inputs = (entry*)malloc(sizeof(entry)*52);
+	gatein = (entry*)malloc(sizeof(entry)*52);
+	gateout = (entry*)malloc(sizeof(entry)*52);
+	outputs = (entry*)malloc(sizeof(entry)*26);
 	//inputs size
 	int cursize;
 	//Number of inputs, number of outputs.
